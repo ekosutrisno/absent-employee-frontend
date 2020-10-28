@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center justify-between">
     <div class="relative">
-      <h1 class="text-xl font-semibold">Projects</h1>
+      <h1 class="text-xl font-semibold">My Absent Tracking</h1>
       <div
         class="absolute top-0 right-0 -mr-5 -mt-1 rounded-full flex items-center justify-center w-4 h-4 text-xs text-gray-200 bg-red-700"
       >
@@ -44,7 +44,7 @@
             d="M12 6v6m0 0v6m0-6h6m-6 0H6"
           />
         </svg>
-        <span class="text-sm">Create Project</span>
+        <span class="text-sm">Absent Today</span>
       </router-link>
     </div>
   </div>
@@ -55,6 +55,3 @@ export default {
    name:'ProjectHeader'
 };
 </script>
-
-<style lang="scss" scoped>
-</style>

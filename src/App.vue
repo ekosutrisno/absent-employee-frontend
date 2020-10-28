@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen max-h-screen w-full bg-gray-100">
+  <div class="min-h-screen max-h-screen w-full bg-gray-100 font-absent">
     <!-- Wrapper Section -->
     <div class="container mx-auto flex">
       <!-- Aside  -->
@@ -18,9 +18,15 @@
             <div class="flex-1 mt-4">
               <ProjectHeader />
               <ProjectTabHeader />
-              <ContentBody />
+              <router-view></router-view>
             </div>
-            <div class="flex-none w-56 p-2">lorjdkajkaksjk</div>
+            <div class="flex-none w-56 p-2">
+              <div class="flex flex-col p-2">
+                <img src="../src/assets/svg/Team spirit-bro.svg" alt="team1" />
+                <img src="../src/assets/svg/Team-amico.svg" alt="team2" />
+                <img src="../src/assets/svg/Realtor-bro.svg" alt="team3" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -33,7 +39,6 @@ import Aside from "@/components/Aside";
 import TopBar from "@/components/TopBar";
 import ProjectHeader from "@/components/ProjectHeader";
 import ProjectTabHeader from "@/components/ProjectTabHeader";
-import ContentBody from "@/components/ContentBody";
 
 export default {
   components: {
@@ -41,7 +46,6 @@ export default {
     TopBar,
     ProjectHeader,
     ProjectTabHeader,
-    ContentBody,
   },
 };
 </script>
