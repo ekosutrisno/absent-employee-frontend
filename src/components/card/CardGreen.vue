@@ -1,7 +1,7 @@
 <template>
   <router-link
     :to="`/about/${employee.employeeId}`"
-    class="w-rem-25 text-gray-800 cursor-pointer hover:shadow-xl h-56 mx-4 mt-6 relative bg-white rounded-lg shadow-sm border-2 border-transparent hover:border-green-200"
+    class="w-rem-25 text-gray-800 cursor-pointer hover:shadow-xl h-56 mx-4 mt-6 relative bg-white rounded-lg shadow-sm border-2 border-transparent hover:border-green-200 transition-all duration-200 ease-in-out"
   >
     <div
       class="absolute flex items-center justify-center top-0 left-auto w-12 h-12 bg-green-300 rounded-lg shadow-lg -mt-4 ml-4"

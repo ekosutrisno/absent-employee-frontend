@@ -46,15 +46,15 @@
         </span>
       </div>
     </div>
+
     <div class="h-rem-20 flex flex-wrap items-center px-4 py-4 overflow-y-auto">
       <CardPurple
         v-for="employeeInfo in employee.employeeInfo"
-        :key="employeeInfo.employeeInfo"
+        :key="employeeInfo.employeeInfoId"
         :employeeInfo="employeeInfo"
       />
-
       <div
-        v-if="employee.employeeInfo.length == 0"
+        v-show="k() == 0"
         class="w-full text-center p-4 cursor-pointer hover:shadow-xl h-auto mx-4 mt-6 relative bg-white rounded-lg shadow-sm border-2 border-purple-200"
       >
         <span>{{ employee.fullName }} belum pernah melakukan Absent</span>
@@ -75,6 +75,17 @@ export default {
   },
   components: {
     CardPurple,
-  }
+  },
+  beforeUpdate() {
+    this.k()
+  },
+  methods: {
+    k() {
+      const tempInfo = this.employee.employeeInfo
+        ? this.employee.employeeInfo
+        : [];
+      return tempInfo.length;
+    },
+  },
 };
 </script>

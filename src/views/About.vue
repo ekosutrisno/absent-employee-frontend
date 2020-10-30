@@ -16,7 +16,7 @@ export default {
   components: {
     DetailBody,
   },
-  async created() {
+  async beforeCreate() {
     let employeeId = this.$route.params.employeeId;
     const { data } = await axios.get(
       `http://localhost:9000/api/v1/employees/${employeeId}`
