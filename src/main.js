@@ -4,11 +4,20 @@ import router from './router'
 import axios from 'axios'
 import VueMoment from 'vue-moment'
 import moment from 'moment-timezone'
+import vmodal from 'vue-js-modal'
+import '@/assets/style/main.css'
+import '@/assets/style/formulate.css'
+
+
+const VueFormulate = require('@braid/vue-formulate')
+
+Vue.use(VueFormulate.default)
+
+Vue.use(vmodal)
 
 Vue.use(VueMoment, {
   moment,
 })
-import '@/assets/style/main.css'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios

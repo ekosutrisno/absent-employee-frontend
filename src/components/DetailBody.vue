@@ -34,6 +34,26 @@
         </div>
       </div>
       <div class="px-5">
+        <button
+          @click="$modal.show('createAbsent')"
+          class="rounded-3xl focus:outline-none inline-flex items-center text-green-700 font-medium border-2 border-green-200 bg-green-100 hover:bg-green-200 hover:text-green-800 py-1 px-3"
+        >
+          <svg
+            class="w-4 h-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+            />
+          </svg>
+          <span class="text-sm">Absent Today</span>
+        </button>
         <span
           class="font-semibold flex flex-col items-center text-green-400 uppercase"
         >
@@ -60,10 +80,51 @@
         <span>{{ employee.fullName }} belum pernah melakukan Absent</span>
       </div>
     </div>
+    <modal name="createAbsent" :adaptive="true" :height="400" :width="350">
+      <div class="bg-white shadow overflow-hidden relative h-full w-full">
+        <!-- Body  -->
+        <div class="p-4">
+          <!-- icon  -->
+          <div
+            class="absolute right-0 top-0 m-3 text-gray-700 hover:text-gray-600"
+          >
+            <i class="fa fa-close h-5 w-5 fill-current"></i>
+          </div>
+          <!-- Header  -->
+          <div class="p-4 text-sm font-semibold uppercase text-gray-700">
+            Please Fill Your location and planning😻
+          </div>
+          <div class="w-full">
+            <FormulateForm class="w-full" v-model="formValues">
+              <FormulateInput
+                name="location"
+                type="text"
+                label="Your location"
+                placeholder="Your location"
+                validation="required"
+              />
+              <FormulateInput
+                type="textarea"
+                name="planning"
+                label="Enter a planning in the box"
+                validation="required|max:1000,length"
+              />
+              <FormulateInput
+                type="submit"
+                @click="hideModal"
+                label="Register"
+                :disabled="disableBtn"
+              />
+            </FormulateForm>
+          </div>
+        </div>
+      </div>
+    </modal>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import CardPurple from "./card/CardPurple";
 
 export default {
@@ -73,11 +134,26 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      formValues: {
+        location: "",
+        planning: "",
+      },
+    };
+  },
   components: {
     CardPurple,
   },
+  computed: {
+    disableBtn() {
+      return this.formValues.location == "" || this.formValues.planning == ""
+        ? true
+        : false;
+    },
+  },
   beforeUpdate() {
-    this.k()
+    this.k();
   },
   methods: {
     k() {
@@ -85,6 +161,22 @@ export default {
         ? this.employee.employeeInfo
         : [];
       return tempInfo.length;
+    },
+    async hideModal() {
+      const data = {
+        employeeId: this.employee.employeeId,
+        planning: this.formValues.planning,
+        location: this.formValues.location,
+        absentMorning: 1,
+        absentAfternoon: 0,
+        absentEvening: 0,
+      };
+      try {
+        await axios.post(`http://localhost:9000/api/v1/info`, data);
+        this.$modal.hide("createAbsent");
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };
