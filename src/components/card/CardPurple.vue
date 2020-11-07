@@ -119,6 +119,7 @@ export default {
           `http://localhost:9000/api/v1/info/${this.employeeInfo.employeeId}`,
           data
         );
+        this.$emit('reload');
       } catch (error) {
         console.log(error);
       }

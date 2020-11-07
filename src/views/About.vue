@@ -62,6 +62,7 @@
           v-for="employeeInfo in employee.employeeInfo"
           :key="employeeInfo.employeeInfoId"
           :employeeInfo="employeeInfo"
+          @reload="reload"
         />
         <div
           v-show="emptyAbsent() == 0"
@@ -182,6 +183,9 @@ export default {
         console.log(error);
       }
     },
+    reload(){
+      this.loadEmployee()
+    }
   },
 };
 </script>
