@@ -47,5 +47,8 @@ export default {
     ProjectHeader,
     ProjectTabHeader,
   },
+  beforeMount() {
+    this.$store.dispatch('loadEmployees')
+  },
 };
 </script>

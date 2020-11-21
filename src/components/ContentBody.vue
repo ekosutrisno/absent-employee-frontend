@@ -9,22 +9,18 @@
 </template>
 
 <script>
-import axios from "axios";
 import CardGreen from "@/components/card/CardGreen";
+import { mapState } from "vuex";
 
 export default {
   name: "ContentBody",
-  data() {
-    return {
-      employees: [],
-    };
+  computed: {
+    ...mapState({
+      employees: (state) => state.employees,
+    }),
   },
   components: {
     CardGreen,
-  },
-  async mounted() {
-    const { data } = await axios.get(`http://localhost:9000/api/v1/employees/`);
-    this.employees = data.data;
   },
 };
 </script>

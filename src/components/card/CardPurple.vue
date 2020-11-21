@@ -11,7 +11,7 @@
     <img class="w-full h-full object-cover" src="../../assets/svg/points-amico.svg" alt="points-amico">
 
     </div>
-    <div class="flex flex-col">
+    <div class="flex flex-col text-gray-800">
       <span class="text-xl font-semibold ml-20 block">
         {{ employeeInfo.createdAt | moment("dddd, MMMM Do YYYY") }}
         <i
@@ -23,14 +23,14 @@
       <span class="text-xs font-semibold ml-20 block text-pink-600">
         INFO ID. {{ employeeInfo.employeeInfoId }}
       </span>
-      <span class="font-semibold ml-5 mt-3 block">
+      <span class="font-semibold ml-5 mt-3 block text-gray-800">
         <i class="fa fa-map-marker-alt"></i>
         {{ employeeInfo.location }}
       </span>
 
       <div class="ml-5 mt-2 flex items-start space-x-2">
-        <i class="fa fa-file-invoice"></i>
-        <p class="w-full">{{ employeeInfo.planning }}</p>
+        <i class="fa fa-file-invoice text-gray-600"></i>
+        <p class="w-full text-gray-600 text-sm">{{ employeeInfo.planning }}</p>
       </div>
 
       <div class="flex items-center justify-between">
@@ -87,7 +87,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   name: "Card",
   props: ["employeeInfo"],
@@ -115,11 +114,7 @@ export default {
         absentEvening: ev > 0 ? ev : this.employeeInfo.absentEvening,
       };
       try {
-        await axios.put(
-          `http://localhost:9000/api/v1/info/${this.employeeInfo.employeeId}`,
-          data
-        );
-        this.$emit('reload');
+        this.$store.dispatch('updateAbsent',data)
       } catch (error) {
         console.log(error);
       }

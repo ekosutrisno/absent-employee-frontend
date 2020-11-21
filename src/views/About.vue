@@ -62,7 +62,6 @@
           v-for="employeeInfo in employee.employeeInfo"
           :key="employeeInfo.employeeInfoId"
           :employeeInfo="employeeInfo"
-          @reload="reload"
         />
         <div
           v-show="emptyAbsent() == 0"
@@ -117,13 +116,12 @@
   </div>
 </template>
 <script>
-import axios from "axios";
 import CardPurple from "../components/card/CardPurple";
+import { mapState } from "vuex";
 
 export default {
   data() {
     return {
-      employee: {},
       formValues: {
         location: "",
         planning: "",
@@ -133,12 +131,9 @@ export default {
   components: {
     CardPurple,
   },
-  async beforeCreate() {
+  beforeCreate() {
     let employeeId = this.$route.params.employeeId;
-    const { data } = await axios.get(
-      `http://localhost:9000/api/v1/employees/${employeeId}`
-    );
-    this.employee = data.data;
+    this.$store.dispatch("loadEmployee", employeeId);
   },
   computed: {
     disableBtn() {
@@ -146,6 +141,9 @@ export default {
         ? true
         : false;
     },
+    ...mapState({
+      employee: (state) => state.employee,
+    }),
   },
   beforeUpdate() {
     this.emptyAbsent();
@@ -157,16 +155,7 @@ export default {
         : [];
       return tempInfo.length;
     },
-
-    async loadEmployee() {
-      let employeeId = this.$route.params.employeeId;
-      const { data } = await axios.get(
-        `http://localhost:9000/api/v1/employees/${employeeId}`
-      );
-      this.employee = data.data;
-    },
-
-    async addAbsent() {
+    addAbsent() {
       const data = {
         employeeId: this.employee.employeeId,
         planning: this.formValues.planning,
@@ -176,16 +165,12 @@ export default {
         absentEvening: 0,
       };
       try {
-        await axios.post(`http://localhost:9000/api/v1/info`, data);
-        this.loadEmployee();
+        this.$store.dispatch("addAbsent", data);
         this.$modal.hide("createAbsent");
       } catch (error) {
         console.log(error);
       }
     },
-    reload(){
-      this.loadEmployee()
-    }
   },
 };
 </script>

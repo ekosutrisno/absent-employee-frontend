@@ -7,6 +7,7 @@ import moment from 'moment-timezone'
 import vmodal from 'vue-js-modal'
 import '@/assets/style/main.css'
 import '@/assets/style/formulate.css'
+import store from "@/store/index.js";
 
 
 const VueFormulate = require('@braid/vue-formulate')
@@ -23,6 +24,7 @@ Vue.config.productionTip = false
 Vue.prototype.$http = axios
 
 new Vue({
+  store,
   router,
   render: h => h(App)
 }).$mount('#app')

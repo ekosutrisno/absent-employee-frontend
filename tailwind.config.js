@@ -12,7 +12,7 @@ module.exports = {
         'rem-20': '20rem',
       },
       fontFamily: {
-        'absent': ['Nunito Sans', 'sans-serif']
+        'absent': ['Nunito', 'sans-serif']
       }
     },
   },
